@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/cloud-347204/nginx:latest', '.']
+  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/cloud-347204/nginx:latest']
+ 
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta', 'run', 'deploy', 'nginx', '--image', 'gcr.io/cloud-347204/nginx', '--port', '80', '--region', 'europe-west1', '--platform', 'managed', '--allow-unauthenticated']
+images:
+ - 'gcr.io/cloud-347204/nginx:latest'
+
